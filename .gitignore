@@ -8,6 +8,7 @@
 *.db
 *.py[cod]
 *.log
+*._*
 
 templates/.goutputstream-*
 
