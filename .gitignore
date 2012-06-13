@@ -1,0 +1,28 @@
+._eNotify.py
+##Generic files to ignore
+*~
+*.lock
+*.DS_Store
+*.swp
+*.out
+*.db
+*.py[cod]
+*.log
+
+templates/.goutputstream-*
+
+# Packages
+*.egg
+*.egg-info
+dist
+build
+eggs
+parts
+bin
+var
+sdist
+develop-eggs
+.installed.cfg
+lib
+lib64
+

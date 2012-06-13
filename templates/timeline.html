@@ -1,0 +1,55 @@
+{% extends "layout.html" %}
+{% block title %}
+  {% if request.endpoint == 'public_timeline' %}
+    Public Timeline
+    <p>This timeline shows messages from all registered users.</p>
+  {% elif request.endpoint == 'user_timeline' %}
+    {{ profile_user.username }}'s Timeline
+  {% else %}
+    My Timeline
+    <p>This timeline shows messages just from users's you've chosen to 'follow'.</p>
+  {% endif %}
+{% endblock %}
+{% block body %}
+  <h2>{{ self.title() }}</h2>
+  {% if g.user %}
+    {% if request.endpoint == 'user_timeline' %}
+      <div class=followstatus>
+      {% if g.user.user_id == profile_user.user_id %}
+        This is you!
+      {% elif followed %}
+        You are currently following this user.
+        <a class=unfollow href="{{ url_for('unfollow_user', username=profile_user.username)
+          }}">Unfollow user</a>.
+      {% else %}
+        You are not yet following this user.
+        <a class=follow href="{{ url_for('follow_user', username=profile_user.username)
+          }}">Follow user</a>.
+      {% endif %}
+      </div>
+    {% elif request.endpoint == 'timeline' %}
+      <div class=twitbox>
+        <h3>Anything to report, {{ g.user.username }}?</h3>
+        <form action="{{ url_for('add_message') }}" method=post>
+          <p><input type=text name=text size=60><!--
+          --><input type=submit value="Share">
+        </form>
+      </div>
+    {% endif %}
+  {% endif %}
+  <div class=messages>
+  {% for message in messages %}
+    <div class="well" style="padding: 10px;">
+        <img src="{{ message.email|gravatar(size=48) }}"><!-- <p> -->
+          <strong><a href="{{ url_for('user_timeline', username=message.username)
+          }}">{{ message.username }}</a></strong>
+          {{ message.text }}
+          <small>&mdash; {{ message.pub_date|datetimeformat }}</small>
+   </div>
+  {% else %}
+    <div class="well">
+        <em>There's no message so far.</em>
+    </div>
+  {% endfor %}
+  </div>
+{% endblock %}

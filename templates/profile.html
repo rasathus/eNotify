@@ -1,0 +1,59 @@
+{% extends "layout.html" %}
+{% block title %}
+  <h2>{{ g.user.username }}'s Profile</h2>
+{% endblock %}
+
+{% block body %}
+  <h2>Your Profile : </h2>
+  </br>
+  <p><strong>Email</strong> : {{ g.user.email }}</p>
+  {% if g.user.insecure %}
+    <p><strong>Insecure Posting</strong> : Enabled - <a href="/toggle_insecure">Disable</a></p>
+  {% else %}
+    <p><strong>Insecure Posting</strong> : Disabled - <a href="/toggle_insecure">Enable</a></p>
+  {% endif %}
+  </br>
+  <h3>Currently Following :</h3>
+  <div class=following>
+    {% for user in followed_users %}
+    <div class="well" style="padding: 10px;">
+        <p style="padding: 14px;"><strong>Username</strong> : {{ user.username }} &nbsp&nbsp&nbsp&nbsp&nbsp <a href="/{{ user.username }}/unfollow">Unfollow</a></p>
+    </div>    
+    {% else %}
+    <div class="well" style="padding: 10px;">
+        <em>Your not following anyone.  Well that cant be very interesting.</em>
+    </div>
+    {% endfor %}
+  </div>
+  </br>
+  <h3>Registered Notification Clients :</h3>
+  <div class=clients>
+    {% for client in registered_clients %}
+    <div class="well" style="padding: 10px;">
+        <p style="padding: 14px;"><strong>Host</strong> : {{ client.hostname }} &nbsp&nbsp&nbsp&nbsp&nbsp <strong>Port</strong> : {{ client.port }} &nbsp&nbsp&nbsp&nbsp&nbsp <a href="/unregister_client/{{ client.client_id }}">Delete</a>&nbsp<a href="/test_client/{{ client.client_id }}">Test</a></p>
+    </div>    
+    {% else %}
+    <div class="well" style="padding: 10px;">
+        <em>You have no notfication clients registered currently.</em>
+    </div>
+    {% endfor %}
+  </div>
+  </br>
+  <h3>Add a Client :</h3>
+  <div class="alert alert-error"><strong>Warning</strong> : growl passwords are curently stored in plaintext, please do not use a pasword used for other services.</div>
+  <div class="clients", id="add_client">
+    {% from "_formhelpers.html" import render_field %}
+    <form method=post action="/profile">
+      <dl>
+        {{ render_field(form.hostname) }}
+        {{ render_field(form.port) }}
+        {{ render_field(form.password) }}
+        {{ render_field(form.confirm) }}
+        {{ render_field(form.client_id) }}
+      </dl>
+      <p><input class="btn btn-primary btn-large" type=submit value=Register>
+    </form>
+</div>
+
+
+{% endblock %}

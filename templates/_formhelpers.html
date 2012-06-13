@@ -1,0 +1,24 @@
+{% macro render_field(field) %}
+  {% if field.type == "HiddenField" %}
+      <dd>{{ field(**kwargs)|safe }}
+      {% if field.errors %}
+        <ul class=errors>
+        {% for error in field.errors %}
+          <li>{{ error }}</li>
+        {% endfor %}
+        </ul>
+      {% endif %}
+      </dd>
+  {% else %}
+      <dt>{{ field.label }}
+      <dd>{{ field(**kwargs)|safe }}
+      {% if field.errors %}
+        <ul class=errors>
+        {% for error in field.errors %}
+          <li>{{ error }}</li>
+        {% endfor %}
+        </ul>
+      {% endif %}
+      </dd>
+  {% endif %}
+{% endmacro %}
