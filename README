@@ -1,3 +1,31 @@
+    eNotify is a butchered version of the Flask MiniTwit example application.
+    The main modifications being to implement functionality for gntp push
+    notifications of messages, and implement external post mechanisms for use
+    by scripts and external applciations.  If the language will allow you to do
+    an http post, you should be able to post notifications to eNotify.
+
+    External post sample code :
+    Bash :
+        curl -d "username=rpm_builds&message=An externally posted message." http://10.97.154.41:5000/add_insecure_message
+
+    python :
+        from urllib import urlencode
+        from urllib2 import urlopen, Request
+        params = {  'username' : 'rpm_builds',
+                    'message' : 'An externally posted message.'}
+        data = urlencode(params)
+        req = Request('http://10.97.154.41:5000/add_insecure_message', data)
+        response = urlopen(req)
+        print "Post response : %s " % response.read()
+
+    <ORIGINAL DOCUMENTATION>
+        MiniTwit
+        ~~~~~~~~
+
+        A microblogging application written with Flask and sqlite3.
+
+        :copyright: (c) 2010 by Armin Ronacher.
+        :license: BSD, see LICENSE for more details.
 
                         / MiniTwit /
 
@@ -26,3 +54,4 @@
 
       You betcha.  Run the `minitwit_tests.py` file to
       see the tests pass.
+    </ORIGINAL DOCUMENTATION>
