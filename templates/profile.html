@@ -16,8 +16,8 @@
   <h3>Currently Following :</h3>
   <div class=following>
     {% for user in followed_users %}
-    <div class="well" style="padding: 10px;">
-        <p style="padding: 14px;"><strong>Username</strong> : {{ user.username }} &nbsp&nbsp&nbsp&nbsp&nbsp <a href="/{{ user.username }}/unfollow">Unfollow</a></p>
+    <div class="well" style="padding: 0px; margin-top: 20px; margin-bottom: 0px;">
+        <p style="padding: 10px 10px 0px 10px;"><strong>Username</strong> : {{ user.username }} &nbsp&nbsp&nbsp&nbsp&nbsp <a href="/{{ user.username }}/unfollow">Unfollow</a></p>
     </div>    
     {% else %}
     <div class="well" style="padding: 10px;">
@@ -29,8 +29,8 @@
   <h3>Registered Notification Clients :</h3>
   <div class=clients>
     {% for client in registered_clients %}
-    <div class="well" style="padding: 10px;">
-        <p style="padding: 14px;"><strong>Host</strong> : {{ client.hostname }} &nbsp&nbsp&nbsp&nbsp&nbsp <strong>Port</strong> : {{ client.port }} &nbsp&nbsp&nbsp&nbsp&nbsp <a href="/unregister_client/{{ client.client_id }}">Delete</a>&nbsp<a href="/test_client/{{ client.client_id }}">Test</a></p>
+    <div class="well" style="padding: 0px; margin-top: 20px; margin-bottom: 0px;">
+        <p style="padding: 10px 10px 0px 10px;"><strong>Host</strong> : {{ client.hostname }} &nbsp&nbsp&nbsp&nbsp&nbsp <strong>Port</strong> : {{ client.port }} &nbsp&nbsp&nbsp&nbsp&nbsp <a href="/unregister_client/{{ client.client_id }}">Delete</a>&nbsp<a href="/test_client/{{ client.client_id }}">Test</a></p>
     </div>    
     {% else %}
     <div class="well" style="padding: 10px;">

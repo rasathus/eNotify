@@ -2,16 +2,22 @@
 {% block title %}
   {% if request.endpoint == 'public_timeline' %}
     Public Timeline
-    <p>This timeline shows messages from all registered users.</p>
   {% elif request.endpoint == 'user_timeline' %}
     {{ profile_user.username }}'s Timeline
   {% else %}
     My Timeline
-    <p>This timeline shows messages just from users's you've chosen to 'follow'.</p>
   {% endif %}
 {% endblock %}
 {% block body %}
-  <h2>{{ self.title() }}</h2>
+  {% if request.endpoint == 'public_timeline' %}
+    <h2>Public Timeline</h2>
+    <p>This timeline shows messages from all registered users.</p>
+  {% elif request.endpoint == 'user_timeline' %}
+    {{ profile_user.username }}'s Timeline
+  {% else %}
+    <h2>My Timeline</h2>
+    <p>This timeline shows messages just from users's you've chosen to 'follow'.</p>
+  {% endif %}
   {% if g.user %}
     {% if request.endpoint == 'user_timeline' %}
       <div class=followstatus>
